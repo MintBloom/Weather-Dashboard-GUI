@@ -29,8 +29,29 @@ def retrieve_weather_info():
 
 weather_info = retrieve_weather_info()
 
+
+def get_forecast(data, index=0):
+    f = data["list"][index]
+    city = data["city"]["name"]
+
+    return {
+        "city": city,
+        "time": f["dt_txt"],
+        "temp": f["main"]["temp"],
+        "feels": f["main"]["feels_like"],
+        "humidity": f["main"]["humidity"],
+        "weather": f["weather"][0]["description"],
+        "wind": f["wind"]["speed"],
+        "rain": f.get("rain", {}).get("3h", 0)
+    }
+
 if weather_info:
-    print(weather_info) # not recognised
+    city_name = weather_info["city"]["name"]
+    country = weather_info["city"]["country"]
+
+    print(city_name, country)
+    print (get_forecast(weather_info))
+# Aberdeen GB
 
 
     
